@@ -1,0 +1,60 @@
+
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    /*
+    int numbers[3] = {0,1,2}; 
+    // размер массива делим на размер элемента и получаем кол-во элементов в массиве
+    int size = sizeof(numbers) / sizeof(numbers[0]);
+ 
+    for(int i = 0;i < size;++i){
+        std::cout <<  numbers[i] << std::endl;
+    }
+    */
+    
+    // работаем с массивом
+    int arrSize = 3;
+    string* arr = new string[arrSize];
+    int count = 0; // сколько имён реально записано
+    
+    string input;
+    
+    while (true) {
+        cout << "Ввести имя пользователя (стоп — закончить): ";
+        cin >> input;
+    
+        if (input == "стоп") {
+            break;
+        }
+    
+        if (count == arrSize) { // если размер массива совпадает с максимальным, увеличиваем его
+            arrSize = arrSize * 2;
+    
+            string* tmpArr = new string[arrSize];
+    
+            // копируем все значения в новый временный массив
+            for (int i = 0; i < count; ++i) {
+                tmpArr[i] = arr[i];
+            }
+    
+            delete[] arr;
+            arr = tmpArr;
+        }
+    
+        arr[count] = input;
+        count++;
+    }
+    
+    cout << endl << "--- Список имён ---" << endl;
+    for (int i = 0; i < count; i++) {
+        cout << i + 1 << ". " << arr[i] << endl;
+    }
+    
+    delete[] arr;
+    
+    return 0;
+}
